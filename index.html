@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio | Nama Kamu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 flex">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="w-64 h-screen bg-gradient-to-b from-blue-600 to-purple-700 text-white fixed left-0 top-0 flex flex-col justify-between p-6 transform transition-transform duration-300">
+    <div>
+      <!-- Foto Profil -->
+      <div class="flex flex-col items-center mb-6">
+        <img src="https://files.catbox.moe/drr554.jpg" alt="Foto Profil" class="w-24 h-24 rounded-full border-4 border-yellow-300 shadow-md mb-4">
+        <h1 class="text-xl font-bold">Hisyam AK</h1>
+        <p class="text-sm text-gray-200">RPL/PPLG</p>
+      </div>
+      <!-- Menu Navigasi -->
+      <nav class="space-y-4 mt-8">
+        <a href="#about" class="block hover:text-yellow-300">About</a>
+        <a href="#projects" class="block hover:text-yellow-300">Projects</a>
+        <a href="#contact" class="block hover:text-yellow-300">Contact</a>
+      </nav>
+    </div>
+<div>
+  <p class="text-sm">© 2025 Hak Cipta / Copyright <span class="font-semibold">Hisyam AK</span>. All Rights Reserved.</p>
+</div>
+  </aside>
+
+  <!-- Tombol Toggle Sidebar -->
+  <button id="toggleBtn" class="fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md md:hidden">
+    ☰
+  </button>
+
+  <!-- Main Content -->
+  <main class="flex-1 md:ml-64">
+    <!-- Hero -->
+    <section class="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+      <h2 class="text-5xl font-extrabold mb-4">Hi, I'm <span class="text-yellow-300">Hisyam AK</span></h2>
+      <p class="text-lg max-w-xl">Siswa Jurusan PPLG di <span class="font-semibold">SMK</span><span class="font-semibold"> Kelas XI</span>.</p>
+      <a href="#projects" class="mt-6 px-6 py-3 bg-yellow-300 text-black rounded-full font-bold hover:bg-yellow-400 transition">Lihat Proyek</a>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="max-w-4xl mx-auto py-20 px-6">
+      <h3 class="text-3xl font-bold mb-6">Tentang Saya</h3>
+      <p class="text-lg leading-relaxed">Halo! Saya Hisyam, seorang siswa SMK jurusan PPLG, Saya tingga di Sukoharjo+62 857-0223-2348.</p>
+    </section>
+
+    <!-- Projects -->
+<section id="projects" class="bg-gray-100 py-20 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h3 class="text-3xl font-bold mb-10 text-center">Proyek Saya</h3>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Card 1 -->
+      <div class="bg-white shadow-md rounded-2xl p-5 hover:shadow-xl transition">
+        <h4 class="text-xl font-bold">Project 1</h4>
+        <p class="text-gray-600 mb-3">Membuat QR-CODE Video</p>
+        <a href="https://github.com/Caveine12/Hanya-QR-CODE-Biasa-/settings/pages" target="_blank" class="text-blue-500 hover:underline">🔗 Lihat di GitHub →</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white shadow-md rounded-2xl p-5 hover:shadow-xl transition">
+        <h4 class="text-xl font-bold">Project 2</h4>
+        <p class="text-gray-600 mb-3">Membuat Video html</p>
+        <a href="https://github.com/Caveine12/video-biasa-" target="_blank" class="text-blue-500 hover:underline">🔗 Lihat di GitHub →</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white shadow-md rounded-2xl p-5 hover:shadow-xl transition">
+        <h4 class="text-xl font-bold">Project 3</h4>
+        <p class="text-gray-600 mb-3">Project 3, ya portifolio ini</p>
+        <a href="https://github.com/username/project3" target="_blank" class="text-blue-500 hover:underline">🔗 Lihat di GitHub →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="max-w-4xl mx-auto py-20 px-6 text-center">
+  <h3 class="text-3xl font-bold mb-6">Hubungi Saya</h3>
+  <p class="mb-6">hubungi saya :</p>
+
+  <!-- Alamat -->
+  <div class="bg-white shadow-md rounded-xl p-6 mb-6 inline-block text-left border-l-4 border-blue-500">
+    <p class="text-gray-700"><span class="font-semibold">📍 Alamat:</span> Sukoharjo, Jawa Tengah, Indonesia</p>
+    <p class="text-gray-700"><span class="font-semibold">📞 Telepon:</span> +62 878-3508-4445</p>
+  </div>
+
+  <a href="mailto:hisyamak4@gmail.com" class="px-6 py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition">Kirim Email</a>
+</section>
+  </main>
+
+  <!-- Script Toggle -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+    });
+
+    // Default: sidebar hidden di mobile
+    if (window.innerWidth < 768) {
+      sidebar.classList.add('-translate-x-full');
+    }
+  </script>
+</body>
+</html>
