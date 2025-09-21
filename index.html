@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Portofolio Hisyam</title>
+  <title>Login | Portfolio Hisyam</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Library QR -->
+  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body class="h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
 
   <!-- Login Form -->
   <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
-    <h1 class="text-3xl font-extrabold text-center mb-8 text-blue-600">Portofolio Hisyam</h1>
+    <h1 class="text-3xl font-extrabold text-center mb-8 text-blue-600">Portfolio Hisyam</h1>
     <h2 class="text-xl font-bold text-center mb-6">Login</h2>
+    
+    <!-- Form Login -->
     <form id="loginForm" class="space-y-4">
       <div>
         <label class="block mb-1 font-semibold">Username</label>
@@ -23,10 +27,30 @@
       </div>
       <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Login</button>
     </form>
-    <p><class="text-sm">© 2025 Hak Cipta / Copyright <span class="font-semibold">Hisyam AK</span>. Semua Hak Dilindungi / All Rights Reserved.</p>
+
     <p id="errorMsg" class="text-red-500 text-sm mt-3 hidden text-center">❌ Username atau password salah</p>
+
+    <p class="text-sm mt-6 text-center">© 2025 Hak Cipta / Copyright <span class="font-semibold">Hisyam AK</span>. Semua Hak Dilindungi.</p>
+
+    <!-- Atau -->
+    <div class="my-6 text-center text-gray-500">─── atau ───</div>
+
+    <!-- QR Code Login -->
+    <div>
+      <h2 class="text-center font-semibold mb-2">Login dengan QR Code</h2>
+      
+      <!-- Scanner kamera -->
+      <div id="reader" class="w-full h-64"></div>
+      <p id="qrStatus" class="text-center text-sm mt-2 text-blue-600"></p>
+
+      <!-- Upload QR dari galeri -->
+      <div class="mt-4 text-center">
+        <input type="file" id="qrFile" accept="image/*" class="block mx-auto">
+      </div>
+    </div>
   </div>
 
+  <!-- Script -->
   <script>
     const loginForm = document.getElementById("loginForm");
     const errorMsg = document.getElementById("errorMsg");
@@ -41,76 +65,53 @@
       const password = document.getElementById("password").value.trim();
 
       if (username === validUser && password === validPass) {
-        // Redirect ke portofolio
-        window.location.href = "portofolio.html";
+        window.location.href = "portfolio.html"; // konsisten nama file
       } else {
         errorMsg.classList.remove("hidden");
       }
     });
-    <!-- Atau -->
-<div class="my-6 text-center text-gray-500">─── atau ───</div>
 
-<!-- QR Code Login -->
-<div>
-  <h2 class="text-center font-semibold mb-2">Login dengan QR Code</h2>
-  
-  <!-- Scanner kamera -->
-  <div id="reader" class="w-full h-64"></div>
-  <p id="qrStatus" class="text-center text-sm mt-2 text-blue-600"></p>
+    // === Login QR ===
+    const validQR = "hisyam123"; // Token QR yang valid
+    const qrStatus = document.getElementById("qrStatus");
 
-  <!-- Upload QR dari galeri -->
-  <div class="mt-4 text-center">
-    <input type="file" id="qrFile" accept="image/*" class="block mx-auto">
-  </div>
-</div>
-
-<!-- Library QR -->
-<script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-
-<script>
-  // === Konfigurasi ===
-  const validQR = "hisyam123"; // Token QR yang valid
-  const qrStatus = document.getElementById("qrStatus");
-
-  // === Scan via Kamera ===
-  function onScanSuccess(decodedText) {
-    if (decodedText === validQR) {
-      qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
-      window.location.href = "portfolio.html";
-    } else {
-      qrStatus.textContent = "❌ QR tidak dikenal!";
+    // Scan via Kamera
+    function onScanSuccess(decodedText) {
+      if (decodedText === validQR) {
+        qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
+        window.location.href = "portfolio.html";
+      } else {
+        qrStatus.textContent = "❌ QR tidak dikenal!";
+      }
     }
-  }
 
-  const html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-    fps: 10,
-    qrbox: 200
-  });
-  html5QrcodeScanner.render(onScanSuccess);
+    const html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 200
+    });
+    html5QrcodeScanner.render(onScanSuccess);
 
-  // === Scan via Upload Gambar ===
-  const fileInput = document.getElementById("qrFile");
-  fileInput.addEventListener("change", (e) => {
-    if (e.target.files.length === 0) return;
+    // Scan via Upload Gambar
+    const fileInput = document.getElementById("qrFile");
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length === 0) return;
+      const file = e.target.files[0];
+      const html5QrCode = new Html5Qrcode("reader");
 
-    const file = e.target.files[0];
-    const html5QrCode = new Html5Qrcode(/* element id */ "reader");
-
-    html5QrCode.scanFile(file, true)
-      .then(decodedText => {
-        if (decodedText === validQR) {
-          qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
-          window.location.href = "portfolio.html";
-        } else {
-          qrStatus.textContent = "❌ QR tidak dikenal!";
-        }
-      })
-      .catch(err => {
-        qrStatus.textContent = "⚠️ Gagal membaca QR dari gambar";
-        console.error(err);
-      });
-  });
-</script>
+      html5QrCode.scanFile(file, true)
+        .then(decodedText => {
+          if (decodedText === validQR) {
+            qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
+            window.location.href = "portfolio.html";
+          } else {
+            qrStatus.textContent = "❌ QR tidak dikenal!";
+          }
+        })
+        .catch(err => {
+          qrStatus.textContent = "⚠️ Gagal membaca QR dari gambar";
+          console.error(err);
+        });
+    });
   </script>
 </body>
 </html>
