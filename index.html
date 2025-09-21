@@ -82,26 +82,41 @@
     const qrContainer = document.getElementById("qrContainer");
     const qrStatus = document.getElementById("qrStatus");
     const validQR = "hisyam123"; // Token QR valid
+    let html5QrCode;
 
     qrLoginBtn.addEventListener("click", () => {
       qrContainer.classList.toggle("hidden");
-    });
 
-    // Scanner kamera
-    function onScanSuccess(decodedText) {
-      if (decodedText === validQR) {
-        qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
-        window.location.href = "portofolio.html";
+      if (!qrContainer.classList.contains("hidden")) {
+        // Mulai kamera otomatis
+        html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+          { facingMode: "environment" }, // kamera belakang
+          { fps: 10, qrbox: 200 },
+          (decodedText) => {
+            if (decodedText === validQR) {
+              qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
+              html5QrCode.stop().then(() => {
+                window.location.href = "portofolio.html";
+              });
+            } else {
+              qrStatus.textContent = "❌ QR tidak dikenal!";
+            }
+          },
+          (errorMessage) => {
+            // error scanning
+          }
+        ).catch(err => {
+          qrStatus.textContent = "⚠️ Gagal mengakses kamera";
+          console.error(err);
+        });
       } else {
-        qrStatus.textContent = "❌ QR tidak dikenal!";
+        // Stop kamera jika ditutup
+        if (html5QrCode) {
+          html5QrCode.stop();
+        }
       }
-    }
-
-    const html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-      fps: 10,
-      qrbox: 200
     });
-    html5QrcodeScanner.render(onScanSuccess);
 
     // Scan dari upload gambar
     const fileInput = document.getElementById("qrFile");
@@ -109,9 +124,9 @@
       if (e.target.files.length === 0) return;
 
       const file = e.target.files[0];
-      const html5QrCode = new Html5Qrcode("reader");
+      const html5QrCodeFile = new Html5Qrcode("reader");
 
-      html5QrCode.scanFile(file, true)
+      html5QrCodeFile.scanFile(file, true)
         .then(decodedText => {
           if (decodedText === validQR) {
             qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
