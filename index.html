@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Portfolio Hisyam</title>
+  <title>Login | Portofolio Hisyam</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Library QR -->
   <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
@@ -12,7 +12,7 @@
 
   <!-- Login Form -->
   <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md">
-    <h1 class="text-3xl font-extrabold text-center mb-8 text-blue-600">Portfolio Hisyam</h1>
+    <h1 class="text-3xl font-extrabold text-center mb-8 text-blue-600">Portofolio Hisyam</h1>
     <h2 class="text-xl font-bold text-center mb-6">Login</h2>
     
     <!-- Form Login -->
@@ -65,7 +65,7 @@
       const password = document.getElementById("password").value.trim();
 
       if (username === validUser && password === validPass) {
-        window.location.href = "portfolio.html"; // konsisten nama file
+        window.location.href = "portofolio.html"; // konsisten nama file
       } else {
         errorMsg.classList.remove("hidden");
       }
@@ -102,7 +102,7 @@
         .then(decodedText => {
           if (decodedText === validQR) {
             qrStatus.textContent = "✅ QR Valid! Mengarahkan...";
-            window.location.href = "portfolio.html";
+            window.location.href = "portofolio.html";
           } else {
             qrStatus.textContent = "❌ QR tidak dikenal!";
           }
