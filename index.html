@@ -33,37 +33,6 @@
         Login dengan QR Code
       </button>
     </div>
-    <!-- Tambah div untuk kamera -->
-<div id="qr-reader" style="width:300px; display:none; margin:auto; margin-top:20px;"></div>
-
-<!-- Tambahkan script html5-qrcode -->
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script>
-  const qrButton = document.getElementById("login-qr-btn"); // id tombol QR Code
-  const qrReader = document.getElementById("qr-reader");
-
-  qrButton.addEventListener("click", () => {
-    qrReader.style.display = "block"; // tampilkan kamera
-    const html5QrCode = new Html5Qrcode("qr-reader");
-    
-    html5QrCode.start(
-      { facingMode: "environment" }, // kamera belakang
-      {
-        fps: 10,
-        qrbox: 250
-      },
-      (decodedText) => {
-        // Kalau QR berhasil discan
-        alert("QR Code ditemukan: " + decodedText);
-        window.location.href = "portofolio.html"; 
-        html5QrCode.stop();
-      },
-      (errorMessage) => {
-        // error scanning (bisa diabaikan kalau tidak perlu)
-      }
-    );
-  });
-</script>
 
     <!-- Container QR Scanner -->
     <div id="qrContainer" class="hidden mt-4">
